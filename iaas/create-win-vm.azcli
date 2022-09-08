@@ -1,0 +1,23 @@
+az group create \
+    --name "psdemo-rg" \
+    --location "westeurope"
+
+# Create windows vm
+az vm create \
+    --resource-group "psdemo-rg" \
+    --name "psdemo-win-cli" \
+    --image "win2019datacenter" \
+    --admin-username "demoadmin" \
+    --admin-password "password1234!"
+
+# open up port for RDP
+az vm open-port \ 
+    --resource-group "psdemo-rg" \
+    --name "psdemo-win-cli" \
+    --port 3389
+
+# Get public IP address
+az vm list-ip-addresses \
+    --resource-group "psdemo-rg" \
+    --name "psdemo-win-cli" \
+    --output table
